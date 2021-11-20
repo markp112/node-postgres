@@ -1,11 +1,14 @@
 import express from 'express';
 import pool from '../db-config/db-connector';
 
+
 class Server {
   private app;
 
-  constructor() {
+  constructor(router: express.Router) {
     this.app = express();
+    this.app.use(router);
+
     this.config();
     this.routerConfig();
     this.dbConnect();
@@ -27,6 +30,7 @@ class Server {
       if (err) throw new Error(err.message);
       console.log('Connected');
     }); 
+  
   }
 
   public start = (port: number) => {
